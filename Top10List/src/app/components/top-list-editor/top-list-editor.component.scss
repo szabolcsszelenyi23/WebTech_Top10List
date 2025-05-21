@@ -1,41 +1,57 @@
 .editor-container {
   max-width: 800px;
   margin: 0 auto;
-  padding: 16px;
+  padding: 20px;
 }
 
-.drag-item {
-  border: 1px solid #e0e0e0;
-  border-radius: 4px;
-  margin-bottom: 8px;
-  padding: 8px;
-  background: white;
+.editor-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
 
-  .drag-handle {
-    cursor: move;
-    margin-right: 16px;
-    color: #757575;
+.form-row {
+  display: flex;
+  gap: 20px;
+  
+  mat-form-field {
+    flex: 1;
   }
+}
 
-  .item-content {
-    flex-grow: 1;
-
-    mat-form-field {
-      width: 100%;
-      margin-right: 16px;
+.list-items {
+  .mat-list-item {
+    height: auto;
+    padding: 12px 0;
+    align-items: flex-start;
+    
+    .drag-handle {
+      cursor: move;
+      margin-right: 12px;
+      color: rgba(0, 0, 0, 0.54);
+    }
+    
+    .rank {
+      font-weight: bold;
+      min-width: 24px;
+      margin-right: 12px;
+    }
+    
+    .item-content {
+      flex-grow: 1;
+      display: flex;
+      gap: 12px;
+      
+      mat-form-field {
+        flex: 1;
+      }
     }
   }
 }
 
 .actions {
   display: flex;
-  margin-top: 16px;
-
-  .spacer {
-    flex-grow: 1;
-  }
-
-  button {
-    margin-left: 8px;
-  }
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 20px;
 }

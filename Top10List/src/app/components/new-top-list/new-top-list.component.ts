@@ -1,70 +1,71 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MatSelectModule } from '@angular/material/select';
+import { TopList, TopListItemType } from '../../models/list.model';
 
 @Component({
   selector: 'app-new-top-list',
   standalone: true,
   imports: [
-    CommonModule,
     FormsModule,
+    CommonModule,
+    MatFormFieldModule,
     MatInputModule,
-    MatSelectModule,
     MatButtonModule,
-    MatIconModule,
-    MatDialogModule
+    MatSelectModule
   ],
   templateUrl: './new-top-list.component.html',
   styleUrls: ['./new-top-list.component.scss']
 })
-export class NewTopListComponent {
-  @Output() listCreated = new EventEmitter<any>();
-  @Output() cancel = new EventEmitter<void>();
+export class NewTopListComponent implements OnInit {
+  newListTitle: string = '';
+  selectedType: TopListItemType = 'film';
+  submitted: boolean = false;
 
-  categories = ['Filmek', 'Zenék', 'Sorozatok', 'Egyéb'];
-  newList: any = {
-    title: '',
-    category: 'Filmek',
-    items: Array(10).fill(null).map((_, i) => ({
-      rank: i + 1,
-      title: '',
-      subtitle: ''
-    }))
-  };
+  itemTypes: TopListItemType[] = ['film', 'zene', 'sorozat'];
+  itemValues: string[] = Array(10).fill('');
 
-  // Dialog használata esetén
-  constructor(public dialogRef: MatDialogRef<NewTopListComponent>) {}
+  @Output() listCreated = new EventEmitter<TopList>();
 
-  onSubmit() {
-    const completeList = {
-      ...this.newList,
-      id: this.generateId(),
-      createdAt: new Date(),
-      updatedAt: new Date()
-    };
-    this.listCreated.emit(completeList);
+  constructor() { }
 
-    // Dialog használata esetén
-    if (this.dialogRef) {
-      this.dialogRef.close(completeList);
+  ngOnInit() {
+    // No editing logic needed here
+  }
+
+  createList(): void {
+    this.submitted = true;
+    if (this.newListTitle.trim() && this.itemValues.every(val => val.trim() !== '')) {
+      const newToplist: TopList = {
+        id: Date.now().toString(),
+        title: this.newListTitle.trim(),
+        type: this.selectedType,
+        items: this.itemValues.map((val, idx) => ({
+          id: (idx + 1).toString(),
+          title: `Elem ${idx + 1}`,
+          value: val.trim()
+        }))
+      };
+      this.saveList(newToplist);
+      this.listCreated.emit(newToplist);
+      this.newListTitle = '';
+      this.selectedType = 'film';
+      this.itemValues = Array(10).fill('');
+      this.submitted = false;
     }
   }
 
-  onCancel() {
-    this.cancel.emit();
-
-    // Dialog használata esetén
-    if (this.dialogRef) {
-      this.dialogRef.close();
-    }
+  saveList(list: TopList): void {
+    const existing = JSON.parse(localStorage.getItem('topLists') || '[]');
+    existing.push(list);
+    localStorage.setItem('topLists', JSON.stringify(existing));
   }
 
-  private generateId(): string {
-    return Math.random().toString(36).substr(2, 9);
+  trackByIndex(index: number, obj: any): any {
+    return index;
   }
 }

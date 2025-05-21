@@ -1,25 +1,68 @@
-<div class="app-container">
-  <h1>Top 10 Listák</h1>
+<mat-toolbar color="primary" class="main-toolbar">
+  <span class="app-title">
+    <mat-icon>star</mat-icon>
+    {{ title }}
+  </span>
+  <span class="spacer"></span>
+  <button mat-button (click)="showAllCategories()" color="accent" *ngIf="!selectedCategory">
+    <mat-icon>list</mat-icon> Összes
+  </button>
+  <button mat-button (click)="showAllCategories()" *ngIf="selectedCategory">
+    <mat-icon>list</mat-icon> Összes
+  </button>
 
-  <div class="content-container">
-    <!-- Lista választó -->
-    <app-list-selector
-      [categories]="categories"
-      [lists]="topLists"
-      (listSelected)="onListSelected($event)">
-    </app-list-selector>
+  <button *ngFor="let cat of categories"
+        mat-button
+        (click)="selectCategory(cat)"
+        [class.selected]="selectedCategory === cat">
+    <mat-icon *ngIf="cat === 'Filmek'">movie</mat-icon>
+    <mat-icon *ngIf="cat === 'Zenék'">music_note</mat-icon>
+    <mat-icon *ngIf="cat === 'Sorozatok'">tv</mat-icon>
+    {{ cat }}
+  </button>
+  <button mat-raised-button color="accent" (click)="showNewList()" style="margin-left:16px;">
+    <mat-icon>add</mat-icon> Új toplista
+  </button>
+</mat-toolbar>
 
-    <!-- Kiválasztott lista megjelenítése -->
-    <div class="list-content" *ngIf="selectedList">
-      <h2>{{selectedList.title}}</h2>
-      <app-list-item [items]="selectedList.items"></app-list-item>
-    </div>
+<!-- Only show the new list creator if showNewListCreator is true -->
+<app-new-top-list
+  *ngIf="showNewListCreator"
+  (listCreated)="onNewListCreated($event)">
+</app-new-top-list>
 
-    <!-- Üres állapot kezelése -->
-    <div class="empty-state" *ngIf="!selectedList">
-      <mat-icon>playlist_add_check</mat-icon>
-      <p>Válassz egy listát a megjelenítéshez</p>
+<!-- Only show the rest if not creating a new list and not editing -->
+<div *ngIf="!showNewListCreator && !selectedList">
+  <div *ngIf="filteredLists.length > 0" class="lists-container">
+    <h2>Létrehozott toplisták:</h2>
+    <div class="lists-grid">
+      <mat-card *ngFor="let list of filteredLists" class="toplist-card">
+        <mat-card-header>
+          <mat-card-title>{{ list.title }}</mat-card-title>
+          <mat-card-subtitle>{{ list.type }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-list>
+            <mat-list-item *ngFor="let item of list.items; let i = index">
+            <span>{{ i + 1 }}.</span>
+            <span class="item-value" *ngIf="item.value"> {{ item.value }}</span>
+          </mat-list-item>
+          </mat-list>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button color="primary" (click)="editList(list)">
+            <mat-icon>edit</mat-icon> Szerkesztés
+          </button>
+        </mat-card-actions>
+      </mat-card>
     </div>
   </div>
-
 </div>
+
+<!-- Editor stays as is -->
+<app-top-list-editor
+  *ngIf="selectedList"
+  [list]="selectedList"
+  (save)="onListSave($event)"
+  (cancel)="onEditCancel()">
+</app-top-list-editor>

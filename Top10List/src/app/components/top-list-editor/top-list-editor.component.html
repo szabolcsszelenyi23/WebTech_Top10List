@@ -1,40 +1,63 @@
 <div class="editor-container">
-  <h2>Lista szerkesztése</h2>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        {{list ? 'Lista szerkesztése' : 'Új Top 10 lista létrehozása'}}
+      </mat-card-title>
+    </mat-card-header>
 
-  <mat-list cdkDropList (cdkDropListDropped)="onDrop($event)">
-    <mat-list-item
-      *ngFor="let item of editedItems; let i = index"
-      cdkDrag
-      class="drag-item">
+    <mat-card-content>
+      <form (ngSubmit)="onSubmit()" class="editor-form">
+        <div class="form-row">
+          <mat-form-field appearance="outline">
+            <mat-label>Lista címe</mat-label>
+            <input matInput [(ngModel)]="editedList.title" name="title" required>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Kategória</mat-label>
+            <mat-select [(ngModel)]="editedList.type" name="type" required>
+              <mat-option *ngFor="let category of categories" [value]="category">
+                {{category}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
 
-      <mat-icon cdkDragHandle class="drag-handle">drag_indicator</mat-icon>
-
-      <div class="item-content">
-        <mat-form-field appearance="outline">
-          <mat-label>Cím</mat-label>
-          <input matInput [(ngModel)]="item.title">
-        </mat-form-field>
-
-        <mat-form-field appearance="outline" *ngIf="item.subtitle !== undefined">
-          <mat-label>Alcím</mat-label>
-          <input matInput [(ngModel)]="item.subtitle">
-        </mat-form-field>
-      </div>
-
-      <button mat-icon-button (click)="removeItem(i)">
-        <mat-icon>delete</mat-icon>
-      </button>
-    </mat-list-item>
-  </mat-list>
-
-  <div class="actions">
-    <button mat-raised-button color="primary" (click)="addItem()">
-      <mat-icon>add</mat-icon> Új elem
-    </button>
-
-    <div class="spacer"></div>
-
-    <button mat-button (click)="onCancel()">Mégse</button>
-    <button mat-raised-button color="primary" (click)="onSave()">Mentés</button>
-  </div>
+        <h3>Top 10 lista</h3>
+        
+        <mat-list cdkDropList (cdkDropListDropped)="onDrop($event)" class="list-items">
+          <mat-list-item *ngFor="let item of editedList.items; let i = index" cdkDrag>
+            <div class="drag-handle" cdkDragHandle>
+              <mat-icon>drag_indicator</mat-icon>
+            </div>
+            
+            <span class="rank">{{item.rank}}.</span>
+            
+            <div class="item-content">
+              <mat-form-field appearance="outline">
+                <mat-label>Cím</mat-label>
+                <input matInput [(ngModel)]="item.title" [name]="'title-' + i" [placeholder]="'Elem ' + (i + 1)" required>
+              </mat-form-field>
+              
+              <mat-form-field appearance="outline">
+                <mat-label>Alcím (opcionális)</mat-label>
+                <input matInput [(ngModel)]="item.subtitle" [name]="'subtitle-' + i">
+              </mat-form-field>
+            </div>
+            
+            <button mat-icon-button type="button" (click)="removeItem(i)" color="warn">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </mat-list-item>
+        </mat-list>
+        
+        <div class="actions">
+          <button mat-button type="button" (click)="cancel.emit()">Mégse</button>
+          <button mat-raised-button color="primary" type="submit" [disabled]="!isFormValid()">
+            {{list ? 'Mentés' : 'Létrehozás'}}
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
 </div>

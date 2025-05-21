@@ -1,47 +1,67 @@
-.app-container {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-.content-container {
-  display: flex;
-  gap: 20px;
-  height: calc(100vh - 180px);
-
-  app-list-selector {
-    width: 350px;
-    flex-shrink: 0;
-  }
-
-  .list-content {
-    flex-grow: 1;
-    padding: 16px;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    overflow-y: auto;
-  }
-
-  .empty-state {
-    flex-grow: 1;
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+/* filepath: c:\Users\freem\source\repos\WebTech_Top10List\Top10List\src\app\app.component.scss */
+.main-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: orange;
+  border-color: black;
+  border: 1px solid black;
+  .app-title {
+    font-size: 1.5rem;
+    font-weight: 500;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    color: #757575;
-
-    mat-icon {
-      font-size: 48px;
-      width: 48px;
-      height: 48px;
-      margin-bottom: 16px;
-    }
+    gap: 8px;
   }
+  .spacer {
+    flex: 1 1 auto;
+  }
+  button {
+    margin-right: 8px;
+  }
+  button.selected {
+  background: orange; /* Cyan or your accent color */
+  color: black;
 }
-.header {
+}
+
+/* filepath: c:\Users\freem\source\repos\WebTech_Top10List\Top10List\src\app\app.component.scss */
+.lists-container {
+  width: 90%;
+  margin: 32px auto 0 auto;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
-  margin-bottom: 20px;
+}
+
+.lists-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: center;
+  width: 100%;
+}
+
+.toplist-card {
+  width: 60%;
+  min-width: 320px;
+  min-height: 420px; /* Makes the card longer */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+mat-card-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+mat-card-subtitle {
+  color: #888;
+}
+mat-list-item {
+  font-size: 1rem;
+}
+.item-value {
+  color: #00bcd4;
+  margin-left: 4px;
 }

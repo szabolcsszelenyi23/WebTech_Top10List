@@ -1,1 +1,27 @@
-<p>new-top-list works!</p>
+<div class="new-top-list-container">
+  <h2>Új toplista létrehozása</h2>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Toplista címe</mat-label>
+    <input matInput type="text" [(ngModel)]="newListTitle" placeholder="Pl. Kedvenc filmjeim 2024" required>
+    <mat-error *ngIf="!newListTitle && submitted">A toplista címének megadása kötelező.</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Toplista típusa</mat-label>
+    <mat-select [(ngModel)]="selectedType">
+      <mat-option *ngFor="let type of itemTypes" [value]="type">
+        {{ type | titlecase }} </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <div *ngFor="let item of itemValues; let i = index; trackBy: trackByIndex">
+  <mat-form-field appearance="fill">
+    <mat-label>Elem {{ i + 1 }}</mat-label>
+    <input matInput [(ngModel)]="itemValues[i]" required>
+  </mat-form-field>
+</div>
+
+  <button mat-raised-button color="primary" (click)="createList()" [disabled]="!newListTitle">
+    Toplista létrehozása
+  </button>
+</div>
