@@ -80,4 +80,9 @@ export class AppComponent implements OnInit {
     this.showNewListCreator = true;
     this.selectedList = null;
   }
+
+  deleteList(list: TopList) {
+    this.createdLists = this.createdLists.filter(l => l.id !== list.id);
+    localStorage.setItem('topLists', JSON.stringify(this.createdLists));
+  }
 }
