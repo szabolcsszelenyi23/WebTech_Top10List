@@ -1,0 +1,40 @@
+<div class="editor-container">
+  <h2>Lista szerkesztése</h2>
+
+  <mat-list cdkDropList (cdkDropListDropped)="onDrop($event)">
+    <mat-list-item
+      *ngFor="let item of editedItems; let i = index"
+      cdkDrag
+      class="drag-item">
+
+      <mat-icon cdkDragHandle class="drag-handle">drag_indicator</mat-icon>
+
+      <div class="item-content">
+        <mat-form-field appearance="outline">
+          <mat-label>Cím</mat-label>
+          <input matInput [(ngModel)]="item.title">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" *ngIf="item.subtitle !== undefined">
+          <mat-label>Alcím</mat-label>
+          <input matInput [(ngModel)]="item.subtitle">
+        </mat-form-field>
+      </div>
+
+      <button mat-icon-button (click)="removeItem(i)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-list-item>
+  </mat-list>
+
+  <div class="actions">
+    <button mat-raised-button color="primary" (click)="addItem()">
+      <mat-icon>add</mat-icon> Új elem
+    </button>
+
+    <div class="spacer"></div>
+
+    <button mat-button (click)="onCancel()">Mégse</button>
+    <button mat-raised-button color="primary" (click)="onSave()">Mentés</button>
+  </div>
+</div>

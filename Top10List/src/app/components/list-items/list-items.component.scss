@@ -1,0 +1,20 @@
+/* list-item.component.scss */
+.rank-badge {
+  background: #3f51b5;
+  color: white;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 16px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+mat-list-item {
+  &:hover {
+    background-color: #f5f5f5;
+  }
+}

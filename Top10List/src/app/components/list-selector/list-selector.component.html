@@ -1,0 +1,23 @@
+<div class="list-selector-container">
+  <!-- Kategória választó -->
+  <div class="category-buttons">
+    <button mat-raised-button
+            *ngFor="let category of categories"
+            [color]="activeCategory === category ? 'primary' : 'basic'"
+            (click)="setCategory(category)">
+      {{category}}
+    </button>
+  </div>
+
+  <!-- Lista választó -->
+  <mat-list class="list-selection">
+    <mat-list-item
+      *ngFor="let list of currentLists"
+      [class.selected]="selectedListId === list.id"
+      (click)="selectList(list)">
+      <mat-icon matListItemIcon>list</mat-icon>
+      <div matListItemTitle>{{list.title}}</div>
+      <div matListItemLine>{{list.items?.length || 0}} elem</div>
+    </mat-list-item>
+  </mat-list>
+</div>

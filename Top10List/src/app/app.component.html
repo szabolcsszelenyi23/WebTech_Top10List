@@ -1,0 +1,25 @@
+<div class="app-container">
+  <h1>Top 10 Listák</h1>
+
+  <div class="content-container">
+    <!-- Lista választó -->
+    <app-list-selector
+      [categories]="categories"
+      [lists]="topLists"
+      (listSelected)="onListSelected($event)">
+    </app-list-selector>
+
+    <!-- Kiválasztott lista megjelenítése -->
+    <div class="list-content" *ngIf="selectedList">
+      <h2>{{selectedList.title}}</h2>
+      <app-list-item [items]="selectedList.items"></app-list-item>
+    </div>
+
+    <!-- Üres állapot kezelése -->
+    <div class="empty-state" *ngIf="!selectedList">
+      <mat-icon>playlist_add_check</mat-icon>
+      <p>Válassz egy listát a megjelenítéshez</p>
+    </div>
+  </div>
+
+</div>
