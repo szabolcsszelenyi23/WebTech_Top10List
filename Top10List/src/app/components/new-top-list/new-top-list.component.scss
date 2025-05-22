@@ -6,17 +6,17 @@
   max-width: 400px;
   margin: 20px auto;
   text-align: center;
-  display: flex; /* Flexbox a jobb elrendezésért */
-  flex-direction: column; /* Elemek oszlopban */
-  gap: 15px; /* Távolság az elemek között */
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
-/* Material form-field szélessége */
+
 mat-form-field {
   width: 100%;
 }
 
-/* Gomb igazítása */
+
 button {
-  margin: 0 auto; /* Középre igazítás */
+  margin: 0 auto;
 }

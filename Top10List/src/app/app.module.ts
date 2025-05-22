@@ -2,15 +2,12 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CommonModule } from '@angular/common'; // <-- EZ FONTOS!
-
-// Angular Material modulok
+import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-
 import { AppComponent } from './app.component';
-import { NewTopListComponent } from './components/new-top-list/new-top-list.component'; // <-- EZ FONTOS!
+import { NewTopListComponent } from './components/new-top-list/new-top-list.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +17,7 @@ import { NewTopListComponent } from './components/new-top-list/new-top-list.comp
     BrowserModule,
     FormsModule,
     BrowserAnimationsModule,
-    CommonModule,         // <-- EZ FONTOS! Ide is tedd be!
+    CommonModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,

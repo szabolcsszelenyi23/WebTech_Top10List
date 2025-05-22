@@ -1,4 +1,4 @@
-export type TopListItemType = 'film' | 'zene' | 'sorozat'; // Új típus a kategóriáknak
+export type TopListItemType = 'film' | 'zene' | 'sorozat';
 
 export interface TopListItem {
   id: string;
@@ -11,6 +11,6 @@ export interface TopListItem {
 export interface TopList {
   id: string;
   title: string;
-  type: string; // use 'type' everywhere, not 'category'
+  type: string;
   items: TopListItem[];
 }

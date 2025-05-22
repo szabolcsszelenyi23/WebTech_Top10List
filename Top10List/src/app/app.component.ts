@@ -7,7 +7,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
-
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +20,9 @@ import { MatListModule } from '@angular/material/list';
     MatToolbarModule,
     MatIconModule,
     MatCardModule,
-    MatListModule
+    MatListModule,
+    MatButtonModule,
+    MatInputModule
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
@@ -43,7 +46,7 @@ export class AppComponent implements OnInit {
   onNewListCreated(newList: TopList) {
     this.createdLists.push(newList);
     localStorage.setItem('topLists', JSON.stringify(this.createdLists));
-    this.showNewListCreator = false; // Hide creator, show main page
+    this.showNewListCreator = false;
   }
 
   editList(list: TopList) {

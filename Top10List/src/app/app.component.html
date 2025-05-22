@@ -25,13 +25,11 @@
   </button>
 </mat-toolbar>
 
-<!-- Only show the new list creator if showNewListCreator is true -->
 <app-new-top-list
   *ngIf="showNewListCreator"
   (listCreated)="onNewListCreated($event)">
 </app-new-top-list>
 
-<!-- Only show the rest if not creating a new list and not editing -->
 <div *ngIf="!showNewListCreator && !selectedList">
   <div *ngIf="filteredLists.length > 0" class="lists-container">
     <h2>Létrehozott toplisták:</h2>
@@ -62,7 +60,6 @@
   </div>
 </div>
 
-<!-- Editor stays as is -->
 <app-top-list-editor
   *ngIf="selectedList"
   [list]="selectedList"

@@ -34,7 +34,7 @@ export class NewTopListComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    // No editing logic needed here
+
   }
 
   createList(): void {

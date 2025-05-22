@@ -81,7 +81,6 @@ export class TopListEditorComponent implements OnInit, OnChanges {
 
   onSubmit() {
   if (!this.isFormValid()) return;
-  // Sync title to value before saving
   this.editedList.items.forEach(item => {
     item.value = item.title;
   });
@@ -93,7 +92,7 @@ export class TopListEditorComponent implements OnInit, OnChanges {
 }
 
   isFormValid(): boolean {
-    return this.editedList.title.trim() !== '' && 
+    return this.editedList.title.trim() !== '' &&
            this.editedList.items.every(item => item.title.trim() !== '');
   }
 
@@ -104,7 +103,6 @@ export class TopListEditorComponent implements OnInit, OnChanges {
   private migrateItemValues() {
   if (this.editedList && this.editedList.items) {
     this.editedList.items.forEach((item, idx) => {
-      // If title is missing or is the default "Elem X", use value if present
       if ((!item.title || item.title === `Elem ${idx + 1}`) && item.value) {
         item.title = item.value;
       }
